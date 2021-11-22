@@ -4,15 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.model.Admin;
 import com.model.DonationDistribution;
 import com.model.Employee;
 
-
-
-
-public interface AdminDao extends JpaRepository<Admin,Integer>{
+@Repository
+public interface IAdminDao extends JpaRepository<Admin,Integer>{
 	public int createEmployee(Employee employee)throws SQLException;
 	public Employee updateEmployee(Employee employee)throws SQLException;
 	public int deleteEmployee(int employeeId)throws SQLException;

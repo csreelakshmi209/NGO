@@ -1,7 +1,10 @@
 package com.service;
 
+import org.springframework.stereotype.Service;
+
 import com.model.NeedyPeople;
 
+@Service
 public class NeedypeopleServiceImpl implements INeedyPeopleService{
 
 	@Override

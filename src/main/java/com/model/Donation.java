@@ -2,12 +2,24 @@ package com.model;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Donation {
+	@Id
+	@GeneratedValue
 	private int donationId;
-	private Donor donor;
-	private DonationItem item;
 	private double donationAmount;
 	private Date donationDate;
+	
+	@ManyToOne
+	private Donor donor;
+	@ManyToOne
+	private DonationItem item;
+	
 	public int getDonationId() {
 		return donationId;
 	}

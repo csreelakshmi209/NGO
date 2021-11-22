@@ -1,10 +1,19 @@
 package com.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class DonationBox {
+	
 	private String ngoName;
+	@Id
+	@GeneratedValue
 	private String registrationNumber;
 	private String accountNumber;
 	private double totalCollection;
+	
 	public String getNgoName() {
 		return ngoName;
 	}

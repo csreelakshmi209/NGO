@@ -1,13 +1,30 @@
 package com.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Employee {
+	@Id
+	@GeneratedValue
 	private int employeeId;
 	private String employeeName;
 	private String email;
 	private String phone;
-	private Address address;
 	private String username;
 	private String password;
+	
+	@ManyToOne
+	private Address address;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	List<DonationDistribution> distributedBy;
 	
 	public int getEmployeeId() {
 		return employeeId;

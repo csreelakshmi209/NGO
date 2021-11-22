@@ -1,9 +1,17 @@
 package com.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Admin {
+	@Id
+	@GeneratedValue
 	private int adminId;
 	private String adminUsername;
 	private String adminPassword;
+	
 	public int getAdminId() {
 		return adminId;
 	}

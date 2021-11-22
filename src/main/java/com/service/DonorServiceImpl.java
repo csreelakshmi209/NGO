@@ -1,10 +1,13 @@
 package com.service;
 
+import org.springframework.stereotype.Service;
+
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
 import com.model.Donation;
 import com.model.Donor;
 
+@Service
 public class DonorServiceImpl implements IDonorService{
 
 	@Override

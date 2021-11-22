@@ -3,11 +3,13 @@ package com.dao;
 import java.sql.SQLException;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.model.Donation;
 import com.model.Donor;
 
-public interface DonorDao extends JpaRepository<Donor,Integer>{
+@Repository
+public interface IDonorDao extends JpaRepository<Donor,Integer>{
 	public int createDonor(Donor donor) throws SQLException;
 	public int login(Donor donor) throws SQLException;
 	public Donation donateToNGO(Donation donation);

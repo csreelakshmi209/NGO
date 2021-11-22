@@ -1,13 +1,25 @@
 package com.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Donor {
+	@Id
+	@GeneratedValue
 	private int donorId;
 	private String donorName;
 	private String donorEmail;
 	private String donorPhone;
 	private String donorUsername;
 	private String donorPassword;
+	
+	@ManyToOne
 	private Address address;
+	
+	
 	public int getDonorId() {
 		return donorId;
 	}

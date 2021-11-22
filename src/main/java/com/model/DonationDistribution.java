@@ -2,15 +2,30 @@ package com.model;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class DonationDistribution {
+	@Id
+	@GeneratedValue
 	private int distributionId;
-	private NeedyPeople person;
-	private DonationItem item;
-	private Employee distributedBy;
 	private double amountDistributed;
 	private Date dateOfDistribution;
 	private Date approvalOrRejectedDate;
 	private DonationDistributionStatus status;
+	
+	@ManyToOne
+	private NeedyPeople person;
+	
+	@ManyToOne
+	private Employee distributedBy;
+	
+	@ManyToOne
+	private DonationItem item;
+	
 	public int getDistributionId() {
 		return distributionId;
 	}

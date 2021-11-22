@@ -2,11 +2,14 @@ package com.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.exception.NoSuchEmployeeException;
 import com.model.DonationDistribution;
 import com.model.Employee;
 import com.model.NeedyPeople;
 
+@Service
 public class EmployeeServiceImpl implements IEmployeeService{
 
 	@Override
