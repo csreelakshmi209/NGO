@@ -9,5 +9,9 @@ import org.springframework.web.context.request.WebRequest;
 
 
 public class DuplicateDonorException extends Exception{
+
+	public DuplicateDonorException(String string) {
+		super(string);
+	}
 	
 }

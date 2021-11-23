@@ -1,5 +1,6 @@
 package com.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,25 +16,20 @@ public class DonorServiceImpl implements IDonorService{
 	@Autowired
 	IDonorDao donorDao;
 	
-	Donor donors;
 	@Override
-	public boolean registerDonor(Donor donor) throws DuplicateDonorException {
-		if(emailExist(donor.getDonorEmail()))
-		{
-			throw new DuplicateDonorException();
-		}
-		return false;
-	}
-
-	private boolean emailExist(String donorEmail) {
+	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
 		
-		//donorDao.findByEmail(DonorEmail)!=null
-		return false;
-	}
-
+		if(donorDao.checkIfUserExist(donor.getDonorEmail())){
+	            throw new DuplicateDonorException("User already exists for this email");
+	        }
+		else
+		{
+			return donorDao.save(donor);
+		}
+	    }
 	@Override
 	public boolean login(Donor donor) throws NoSuchDonorException {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
@@ -57,8 +53,8 @@ public class DonorServiceImpl implements IDonorService{
 
 	@Override
 	public String resetPassword(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	   
+		return username;
 	}
 
 	@Override

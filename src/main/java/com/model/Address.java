@@ -1,5 +1,6 @@
 package com.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -14,10 +16,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="address")
-public class Address {
+public class Address implements Serializable{
 	@Id
-	@GeneratedValue
-	@Column(name="address_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="address_id",nullable=false)
 	private int addressId;
 	private String city;
 	private String state;

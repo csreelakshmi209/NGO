@@ -1,5 +1,6 @@
 package com.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="donation_distributions")
-public class DonationDistribution {
+public class DonationDistribution implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name="distribution_id")

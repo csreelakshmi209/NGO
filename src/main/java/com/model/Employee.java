@@ -1,5 +1,6 @@
 package com.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,11 +16,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="employee")
-public class Employee {
+public class Employee implements Serializable{
 	@Id
 	@GeneratedValue
-	@Column(name="employee_id")
 	private int employeeId;
+	
 	@Column(name="employee_name")
 	private String employeeName;
 	private String email;
@@ -34,6 +35,7 @@ public class Employee {
 //	@OneToOne(cascade=CascadeType.ALL,mappedBy="employee")
 //	private DonationDistribution donationDistribution;
 	
+	public Employee() {}
 	public int getEmployeeId() {
 		return employeeId;
 	}

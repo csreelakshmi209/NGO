@@ -21,20 +21,22 @@ public interface IAdminDao extends JpaRepository<Employee,Integer>{
 //
 //	public boolean deleteEmployee(int employeeId) throws SQLException;
 
-	public Employee readEmployeeById(int employeeId) throws SQLException;
-
-	public List<Employee> readEmployeeByName(String name) throws SQLException;
-
-	public List<Employee> readAllEmployees() throws SQLException;
-
-	public boolean approveDonation(DonationDistribution distribution);
+//	@Query("Select employee_id from Employee employee ")
+//	public Employee readEmployeeById(int employeeId) throws SQLException;
+//
+//	public List<Employee> readEmployeeByName(String name) throws SQLException;
+//
+	
+//	public List<Employee> readAllEmployees() throws SQLException;
+//
+//	public boolean approveDonation(DonationDistribution distribution);
 
 	
-	@Query("Select email from Employee employee ")
-	boolean isEmployeeExist(Employee employee);
-
-	@Query("Select employee_name from Employee employee")
-	List<Employee> findmployeeByName(String name);
+	
+//	boolean isEmployeeExist(Employee employee);
+//
+//	@Query(value="SELECT  * FROM Employee employee where employee.employee_name=?1",nativeQuery = true)
+//	List<Employee> findmployeeByName(String name);
 	
 
 }

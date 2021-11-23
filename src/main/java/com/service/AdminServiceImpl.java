@@ -24,7 +24,8 @@ public class AdminServiceImpl implements IAdminService {
 	
 	@Override
 	public Employee addEmployee(Employee employee) throws DuplicateEmployeeException, SQLException {
-		if(adminDao.isEmployeeExist(employee))
+		int id=employee.getEmployeeId();
+		if(id!=0)
 		{
 			throw new DuplicateEmployeeException();
 		}
@@ -32,8 +33,7 @@ public class AdminServiceImpl implements IAdminService {
 		{
 			emp=adminDao.save(employee);
 		}
-		return emp;
-		
+		return emp;	
 	}
 
 	@Override
@@ -47,6 +47,7 @@ public class AdminServiceImpl implements IAdminService {
 		adminDao.save(emp);
 			
 		return emp;
+		
 	}
 
 	@Override
@@ -57,6 +58,7 @@ public class AdminServiceImpl implements IAdminService {
 		else
 			throw new NoSuchEmployeeException("Employee is not there in database");
 		return "deleted";
+		
 	}
 
 	@Override
@@ -69,12 +71,14 @@ public class AdminServiceImpl implements IAdminService {
 //			return emp;
 //		}
 		return optional.get();
+		
 	}
 
 	@Override
 	public List<Employee> findEmployeeByName(String name) throws NoSuchEmployeeException {
 		
-		return adminDao.findmployeeByName(name);
+		//return adminDao.findmployeeByName(name);
+		return null;
 	}
 
 	@Override

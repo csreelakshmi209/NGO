@@ -1,5 +1,6 @@
 package com.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="needy_people")
-public class NeedyPeople {
+public class NeedyPeople implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name="needy_person_id")
@@ -34,6 +35,7 @@ public class NeedyPeople {
 //	@OneToOne(cascade=CascadeType.ALL,mappedBy="needyPeople")
 //	private DonationDistribution donationDistribution;
 
+	public NeedyPeople() {}
 	public int getNeedyPersonId() {
 		return needyPersonId;
 	}

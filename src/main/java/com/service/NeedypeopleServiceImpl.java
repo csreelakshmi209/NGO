@@ -13,19 +13,19 @@ public class NeedypeopleServiceImpl implements INeedyPeopleService{
 	INeedyPeopleDao needyPeopleDao;
 	@Override
 	public boolean registerNeedyPerson(NeedyPeople person) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean login(NeedyPeople person) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean requestForHelp(NeedyPeople person) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

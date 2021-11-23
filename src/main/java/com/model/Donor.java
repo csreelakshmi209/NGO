@@ -1,5 +1,7 @@
 package com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +14,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="donor")
-public class Donor {
+public class Donor implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name="donor_id")
 	private int donorId;
 	@Column(name="donor_name")
 	private String donorName;
-	@Column(name="donor_email")
+	@Column(name="donor_email",unique=true)
 	private String donorEmail;
 	@Column(name="donor_phone")
 	private String donorPhone;
@@ -34,9 +36,22 @@ public class Donor {
 	
 //	@OneToOne(cascade=CascadeType.ALL,mappedBy="donor")
 //	private Donation donation;
+	
+	public Donor() {}
 	public int getDonorId() {
 		return donorId;
 	}
+	public Donor(int donorId, String donorName, String donorEmail, String donorPhone, String donorUsername,
+		String donorPassword, Address address) {
+	super();
+	this.donorId = donorId;
+	this.donorName = donorName;
+	this.donorEmail = donorEmail;
+	this.donorPhone = donorPhone;
+	this.donorUsername = donorUsername;
+	this.donorPassword = donorPassword;
+	this.address = address;
+}
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
 	}
