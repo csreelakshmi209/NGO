@@ -14,9 +14,20 @@ public class DonorServiceImpl implements IDonorService{
 
 	@Autowired
 	IDonorDao donorDao;
+	
+	Donor donors;
 	@Override
 	public boolean registerDonor(Donor donor) throws DuplicateDonorException {
-		// TODO Auto-generated method stub
+		if(emailExist(donor.getDonorEmail()))
+		{
+			throw new DuplicateDonorException();
+		}
+		return false;
+	}
+
+	private boolean emailExist(String donorEmail) {
+		
+		//donorDao.findByEmail(DonorEmail)!=null
 		return false;
 	}
 
