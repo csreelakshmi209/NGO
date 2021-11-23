@@ -2,22 +2,34 @@ package com.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="donation")
 public class Donation {
 	@Id
 	@GeneratedValue
+	@Column(name="donation_id")
 	private int donationId;
+	@Column(name="donation_amount")
 	private double donationAmount;
+	@Column(name="donation_date")
 	private Date donationDate;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="donor_id")
 	private Donor donor;
-	@ManyToOne
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_id")
 	private DonationItem item;
 	
 	public int getDonationId() {
@@ -52,7 +64,8 @@ public class Donation {
 	}
 	@Override
 	public String toString() {
-		return "Donation [donationId=" + donationId + ", donationAmount=" + donationAmount + "]";
+		return "Donation [donationId=" + donationId + ", donationAmount=" + donationAmount + ", donationDate="
+				+ donationDate + ", donor=" + donor + ", item=" + item + "]";
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.dao.IAdminDao;
 import com.exception.DuplicateEmployeeException;
@@ -11,21 +11,30 @@ import com.exception.NoSuchEmployeeException;
 import com.model.DonationDistribution;
 import com.model.Employee;
 
-@Service
-public class AdminServiceImpl implements IAdminService{
+import ch.qos.logback.classic.Logger;
+
+public class AdminServiceImpl implements IAdminService {
 
 	@Autowired
 	IAdminDao adminDao;
 	
 	@Override
-	public boolean addEmployee(Employee employee) throws DuplicateEmployeeException {
-		
+	public boolean addEmployee(Employee employee) throws DuplicateEmployeeException, SQLException {
+		if(employee.getEmployeeName().isEmpty() || employee.getEmployeeId() ==0)
+		{
+			 throw new DuplicateEmployeeException();
+		}
+		else
+		{
+			Employee saveEmp=adminDao.save(employee);
+		}
 		return false;
+		
 	}
 
 	@Override
 	public Employee modifyEmployee(Employee employee) throws NoSuchEmployeeException {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 

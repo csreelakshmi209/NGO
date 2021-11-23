@@ -2,28 +2,45 @@ package com.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="donation_distributions")
 public class DonationDistribution {
 	@Id
 	@GeneratedValue
+	@Column(name="distribution_id")
 	private int distributionId;
+	@Column(name="amount_distributed")
 	private double amountDistributed;
+	@Column(name="date_of_distribution")
 	private Date dateOfDistribution;
+	@Column(name="approvalOrRejectedDate")
 	private Date approvalOrRejectedDate;
+	
+	@Enumerated(EnumType.STRING)
 	private DonationDistributionStatus status;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="needy_person_id")
 	private NeedyPeople person;
 	
-	@ManyToOne
-	private Employee distributedBy;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="employee_id")
+	private Employee employee;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_id")
 	private DonationItem item;
 	
 	public int getDistributionId() {
@@ -45,10 +62,10 @@ public class DonationDistribution {
 		this.item = item;
 	}
 	public Employee getDistributedBy() {
-		return distributedBy;
+		return employee;
 	}
-	public void setDistributedBy(Employee distributedBy) {
-		this.distributedBy = distributedBy;
+	public void setDistributedBy(Employee employee) {
+		this.employee = employee;
 	}
 	public double getAmountDistributed() {
 		return amountDistributed;
@@ -77,7 +94,8 @@ public class DonationDistribution {
 	@Override
 	public String toString() {
 		return "DonationDistribution [distributionId=" + distributionId + ", amountDistributed=" + amountDistributed
-				+ "]";
+				+ ", dateOfDistribution=" + dateOfDistribution + ", approvalOrRejectedDate=" + approvalOrRejectedDate
+				+ ", status=" + status + ", person=" + person + ", employee=" + employee + ", item=" + item + "]";
 	}
 
 }

@@ -1,25 +1,39 @@
 package com.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="donor")
 public class Donor {
 	@Id
 	@GeneratedValue
+	@Column(name="donor_id")
 	private int donorId;
+	@Column(name="donor_name")
 	private String donorName;
+	@Column(name="donor_email")
 	private String donorEmail;
+	@Column(name="donor_phone")
 	private String donorPhone;
+	@Column(name="donor_username")
 	private String donorUsername;
+	@Column(name="donor_password")
 	private String donorPassword;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="address_id")
 	private Address address;
 	
-	
+//	@OneToOne(cascade=CascadeType.ALL,mappedBy="donor")
+//	private Donation donation;
 	public int getDonorId() {
 		return donorId;
 	}

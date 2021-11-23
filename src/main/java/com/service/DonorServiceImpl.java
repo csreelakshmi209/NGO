@@ -1,7 +1,9 @@
 package com.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.IDonorDao;
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
 import com.model.Donation;
@@ -10,6 +12,8 @@ import com.model.Donor;
 @Service
 public class DonorServiceImpl implements IDonorService{
 
+	@Autowired
+	IDonorDao donorDao;
 	@Override
 	public boolean registerDonor(Donor donor) throws DuplicateDonorException {
 		// TODO Auto-generated method stub

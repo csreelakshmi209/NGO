@@ -3,30 +3,36 @@ package com.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="address")
 public class Address {
 	@Id
 	@GeneratedValue
+	@Column(name="address_id")
 	private int addressId;
 	private String city;
 	private String state;
 	private String pin;
 	private String landmark;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	List<Donor> donor;
+//	@OneToOne(fetch =FetchType.LAZY,cascade=CascadeType.ALL,mappedBy="address")
+//	private NeedyPeople needyPeople;
+//	
+//	@OneToOne(cascade=CascadeType.ALL,mappedBy="address")
+//	private Employee employee;
+//	
+//	@OneToOne(cascade=CascadeType.ALL,mappedBy="address")
+//	private Donor donor;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	List<Employee> employee;
-	
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	List<NeedyPeople> people;
 	
 	public int getAddressId() {
 		return addressId;

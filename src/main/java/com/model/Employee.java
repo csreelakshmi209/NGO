@@ -3,28 +3,36 @@ package com.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="employee")
 public class Employee {
 	@Id
 	@GeneratedValue
+	@Column(name="employee_id")
 	private int employeeId;
+	@Column(name="employee_name")
 	private String employeeName;
 	private String email;
 	private String phone;
 	private String username;
 	private String password;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="address_id")
 	private Address address;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	List<DonationDistribution> distributedBy;
+//	@OneToOne(cascade=CascadeType.ALL,mappedBy="employee")
+//	private DonationDistribution donationDistribution;
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -85,7 +93,7 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", email=" + email + ", phone="
-				+ phone + ", address=" + address + ", username=" + username + ", password=" + password + "]";
+				+ phone + ", username=" + username + ", password=" + password + ", address=" + address + "]";
 	}
 
 }
