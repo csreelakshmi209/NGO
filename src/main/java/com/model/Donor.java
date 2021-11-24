@@ -37,21 +37,14 @@ public class Donor implements Serializable{
 //	@OneToOne(cascade=CascadeType.ALL,mappedBy="donor")
 //	private Donation donation;
 	
-	public Donor() {}
+	public Donor(String donorUsername2, String donorPassword2) {
+		this.donorUsername=donorUsername;
+		this.donorPassword=donorPassword;
+	}
 	public int getDonorId() {
 		return donorId;
 	}
-	public Donor(int donorId, String donorName, String donorEmail, String donorPhone, String donorUsername,
-		String donorPassword, Address address) {
-	super();
-	this.donorId = donorId;
-	this.donorName = donorName;
-	this.donorEmail = donorEmail;
-	this.donorPhone = donorPhone;
-	this.donorUsername = donorUsername;
-	this.donorPassword = donorPassword;
-	this.address = address;
-}
+	
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
 	}

@@ -21,8 +21,8 @@ public class DonorServiceImpl implements IDonorService{
 	DonationDao donationDao;
 	@Override
 	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
-		
-		if(donorDao.checkIfUserExist(donor.getDonorEmail())){
+		String email= donorDao.checkIfUserAlreadyExists(donor.getDonorEmail());
+		if(email == donor.getDonorEmail()){
 	            throw new DuplicateDonorException("User already exists for this email");
 	        }
 		else
@@ -50,13 +50,13 @@ public class DonorServiceImpl implements IDonorService{
 
 	@Override
 	public Donation donateToNGO(Donation donation) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return donationDao.save(donation);
 	}
 
 	@Override
 	public void sendThankyouMailToDonator(Donor donor) {
-		// TODO Auto-generated method stub
+		System.out.println("Thankyou for donating");
 		
 	}
 

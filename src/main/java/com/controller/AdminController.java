@@ -36,7 +36,7 @@ public class AdminController {
 	}
 	//add employee
 	@PostMapping("/employee/add")
-	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws DuplicateEmployeeException, SQLException
+	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws  SQLException, NoSuchEmployeeException
 	{
 		Employee emp=adminService.addEmployee(employee);
 		return new ResponseEntity<Employee>(emp,HttpStatus.CREATED);

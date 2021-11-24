@@ -38,4 +38,7 @@ public interface IAdminDao extends JpaRepository<Employee,Integer>{
 	
 //	@Query("SELECT employee from Employee employee where employee.employee_id == ")
 //	List<Employee> findEmployeeById(int employeeId);
+	
+	 @Query(value="Select email from employee",nativeQuery = true)
+	 String checkIfUserAlreadyExists(String email);
 }

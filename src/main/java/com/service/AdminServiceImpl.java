@@ -19,14 +19,16 @@ public class AdminServiceImpl implements IAdminService {
 		@Autowired
 	IAdminDao adminDao;
 	
-	Employee emp;
+	Employee employee;
 	
 	@Override
-	public Employee addEmployee(Employee employee) throws DuplicateEmployeeException, SQLException {
-		int id=employee.getEmployeeId();
-		if(id!=0)
+	public Employee addEmployee(Employee emp) throws NoSuchEmployeeException, SQLException {
+		
+		String email= adminDao.checkIfUserAlreadyExists(employee.getEmail());
+		
+		if(email==emp.getEmail())
 		{
-			throw new DuplicateEmployeeException();
+			throw new NoSuchEmployeeException("no employee");
 		}
 		else
 		{
