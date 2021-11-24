@@ -85,8 +85,8 @@ public class EmployeeServiceImpl implements IEmployeeService{
 
 	@Override
 	public List<NeedyPeople> findAllNeedyPeople() {
-		// TODO Auto-generated method stub
-		return null;
+		List<NeedyPeople> n=needyRepo.findAll();
+		return n;
 	}
 
 	
