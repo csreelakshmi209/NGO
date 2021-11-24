@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.dao.IAdminDao;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
-
 import com.model.DonationDistribution;
 import com.model.Employee;
 
@@ -34,6 +33,14 @@ public class AdminServiceImpl implements IAdminService {
 			emp=adminDao.save(employee);
 		}
 		return emp;	
+	}
+	
+	@Override
+	public List<Employee> getEmployees()
+	{
+		List<Employee> lc1=adminDao.findAll();
+		
+		return lc1;
 	}
 
 	@Override
@@ -62,23 +69,24 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public Employee findEmployeeById(int employeeId) throws NoSuchEmployeeException {
+	public List<Employee> findEmployeeById(int employeeId) throws NoSuchEmployeeException {
 		Optional<Employee> optional=adminDao.findById(employeeId);
-//		Employee emp=optional.get();
-//		if(optional.isPresent())
-//		{
-//			adminDao.getById(employeeId);
-//			return emp;
-//		}
-		return optional.get();
+		Employee emp=optional.get();
+		if(optional.isPresent())
+		{
+			adminDao.getById(employeeId);
+			return (List<Employee>) emp;
+		}
+		else
+			throw new NoSuchEmployeeException("employee doesnt found");
 		
 	}
 
 	@Override
 	public List<Employee> findEmployeeByName(String name) throws NoSuchEmployeeException {
 		
-		//return adminDao.findmployeeByName(name);
-		return null;
+		return adminDao.findmployeeByName(name);
+		
 	}
 
 	@Override
@@ -89,8 +97,11 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public boolean approveDonation(DonationDistribution distribution) {
-		System.out.println();
+		System.out.println("donation was approved");
 		return false;
 	}
+
+	
+
 
 }

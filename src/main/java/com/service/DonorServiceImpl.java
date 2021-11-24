@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.DonationDao;
 import com.dao.IDonorDao;
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
@@ -16,6 +17,8 @@ public class DonorServiceImpl implements IDonorService{
 	@Autowired
 	IDonorDao donorDao;
 	
+	@Autowired
+	DonationDao donationDao;
 	@Override
 	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
 		
@@ -28,9 +31,21 @@ public class DonorServiceImpl implements IDonorService{
 		}
 	    }
 	@Override
-	public boolean login(Donor donor) throws NoSuchDonorException {
+	public Donor login(Donor donor) throws NoSuchDonorException {
+		Donor doid=donorDao.findById(donor.getDonorId()).orElse(null);
+		if(doid==null) {
+			String NoSuchDonor="No Donor found by the donor id"+donor.getDonorId();
+			throw new  NoSuchDonorException("NoSuchDonor");
+		}
+		else {
+			if(donor.getDonorUsername().equals(doid.getDonorUsername()) && donor.getDonorPassword().equals(doid.getDonorPassword())){
+				return doid;
+			}
+			else {
+				throw new NoSuchDonorException("Donor username and password are invalid");
+			}
+		}	
 		
-		return false;
 	}
 
 	@Override

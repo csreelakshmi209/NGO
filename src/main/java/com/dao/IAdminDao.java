@@ -32,11 +32,10 @@ public interface IAdminDao extends JpaRepository<Employee,Integer>{
 //	public boolean approveDonation(DonationDistribution distribution);
 
 	
-	
-//	boolean isEmployeeExist(Employee employee);
 //
-//	@Query(value="SELECT  * FROM Employee employee where employee.employee_name=?1",nativeQuery = true)
-//	List<Employee> findmployeeByName(String name);
+	@Query(value="SELECT  employee FROM Employee employee where employee.employee_name like : ",nativeQuery = true)
+	List<Employee> findmployeeByName(String name);
 	
-
+//	@Query("SELECT employee from Employee employee where employee.employee_id == ")
+//	List<Employee> findEmployeeById(int employeeId);
 }

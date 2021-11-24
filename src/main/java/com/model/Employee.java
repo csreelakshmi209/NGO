@@ -17,11 +17,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name="employee")
 public class Employee implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private int employeeId;
 	
-	@Column(name="employee_name")
 	private String employeeName;
 	private String email;
 	private String phone;
