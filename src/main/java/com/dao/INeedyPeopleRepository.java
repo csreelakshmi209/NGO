@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.model.NeedyPeople;
 @Repository
-public interface INeedyPeopleDao extends JpaRepository<NeedyPeople, Integer>{
+public interface INeedyPeopleRepository extends JpaRepository<NeedyPeople, Integer>{
 
 	 @Query(value="Select phone from needy_people",nativeQuery = true)
 	 String checkIfUserAlreadyExists(String phone);

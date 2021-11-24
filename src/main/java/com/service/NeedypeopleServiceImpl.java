@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.INeedyPeopleDao;
+import com.dao.INeedyPeopleRepository;
 import com.exception.NoSuchDonorException;
 import com.exception.NoSuchNeedyPeopleException;
 import com.model.Donor;
@@ -15,7 +15,7 @@ import com.model.NeedyPeople;
 public class NeedypeopleServiceImpl implements INeedyPeopleService{
 
 	@Autowired
-	INeedyPeopleDao needyPeopleDao;
+	INeedyPeopleRepository needyPeopleDao;
 	
 	@Override
 	public NeedyPeople registerNeedyPerson(NeedyPeople person) throws NoSuchNeedyPeopleException {

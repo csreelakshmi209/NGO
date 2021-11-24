@@ -14,7 +14,7 @@ import com.model.DonationDistribution;
 import com.model.Employee;
 
 @Repository
-public interface IAdminDao extends JpaRepository<Admin,Integer>{
+public interface IAdminRepository extends JpaRepository<Admin,Integer>{
 //	public int createEmployee(Employee employee) throws SQLException;
 //
 //	public Employee updateEmployee(Employee employee) throws SQLException;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dao.EmployeeDao;
+import com.dao.EmployeeRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.Employee;
@@ -29,7 +29,7 @@ public class AdminController {
 	@Autowired
 	IAdminService adminService;
 	@Autowired
-	EmployeeDao empDao;
+	EmployeeRepository empDao;
 	
 	@RequestMapping("/Hello")
 	public String helloAdmin()

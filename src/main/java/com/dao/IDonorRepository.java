@@ -11,7 +11,7 @@ import com.model.Donor;
 import com.model.Employee;
 
 @Repository
-public interface IDonorDao extends JpaRepository<Donor,Integer>{
+public interface IDonorRepository extends JpaRepository<Donor,Integer>{
 
 	 //findByEmail(String email);
 //	public int createDonor(Donor donor) throws SQLException;

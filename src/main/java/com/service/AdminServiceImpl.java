@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.EmployeeDao;
-import com.dao.IAdminDao;
+import com.dao.EmployeeRepository;
+import com.dao.IAdminRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.DonationDistribution;
@@ -18,10 +18,10 @@ import com.model.Employee;
 @Service
 public class AdminServiceImpl implements IAdminService {
 		@Autowired
-	IAdminDao adminDao;
+	IAdminRepository adminDao;
 		
 	@Autowired
-	EmployeeDao empDao;
+	EmployeeRepository empDao;
 	
 	Employee employee;
 	

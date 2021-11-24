@@ -4,8 +4,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.DonationDao;
-import com.dao.IDonorDao;
+import com.dao.DonationRepository;
+import com.dao.IDonorRepository;
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
 import com.model.Donation;
@@ -15,27 +15,27 @@ import com.model.Donor;
 public class DonorServiceImpl implements IDonorService{
 
 	@Autowired
-	IDonorDao donorDao;
+	IDonorRepository donorRepo;
 	
 	@Autowired
-	DonationDao donationDao;
+	DonationRepository donationRepo;
 	@Override
 	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
-		String email= donorDao.checkIfUserAlreadyExists(donor.getDonorEmail());
+		String email= donorRepo.checkIfUserAlreadyExists(donor.getDonorEmail());
 		if(email == donor.getDonorEmail()){
 	            throw new DuplicateDonorException("User already exists for this email");
 	        }
 		else
 		{
-			return donorDao.save(donor);
+			return donorRepo.save(donor);
 		}
 	    }
 	@Override
 	public Donor login(Donor donor) throws NoSuchDonorException {
-		Donor doid=donorDao.findById(donor.getDonorId()).orElse(null);
+		Donor doid=donorRepo.findById(donor.getDonorId()).orElse(null);
 		if(doid==null) {
 			String NoSuchDonor="No Donor found by the donor id"+donor.getDonorId();
-			throw new  NoSuchDonorException("NoSuchDonor");
+			throw new  NoSuchDonorException(NoSuchDonor);
 		}
 		else {
 			if(donor.getDonorUsername().equals(doid.getDonorUsername()) && donor.getDonorPassword().equals(doid.getDonorPassword())){
@@ -51,7 +51,7 @@ public class DonorServiceImpl implements IDonorService{
 	@Override
 	public Donation donateToNGO(Donation donation) {
 		
-		return donationDao.save(donation);
+		return donationRepo.save(donation);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class DonorServiceImpl implements IDonorService{
 
 	@Override
 	public void emailPasswordToDonor(String email) {
-		// TODO Auto-generated method stub
+		System.out.println("click here for rest the password");
 		
 	}
 

@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.dao.EmployeeDao;
-import com.dao.IAdminDao;
+import com.dao.EmployeeRepository;
+import com.dao.IAdminRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.Employee;
@@ -27,10 +27,10 @@ class AdminServiceTest {
 	AdminServiceImpl adminService;
 
 	@MockBean
-	EmployeeDao empDao;
+	EmployeeRepository empDao;
 	
 	@MockBean
-	IAdminDao adminDao;
+	IAdminRepository adminDao;
 	@Test
 	void testAddEmployee() {
 		Employee e=new Employee();
