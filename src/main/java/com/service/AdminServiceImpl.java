@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.EmployeeDao;
 import com.dao.IAdminDao;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
@@ -18,29 +19,34 @@ import com.model.Employee;
 public class AdminServiceImpl implements IAdminService {
 		@Autowired
 	IAdminDao adminDao;
+		
+	@Autowired
+	EmployeeDao empDao;
 	
 	Employee employee;
 	
 	@Override
-	public Employee addEmployee(Employee emp) throws NoSuchEmployeeException, SQLException {
+	public Employee addEmployee(Employee emp)  {
 		
-		String email= adminDao.checkIfUserAlreadyExists(employee.getEmail());
+		emp=empDao.save(employee);
 		
-		if(email==emp.getEmail())
-		{
-			throw new NoSuchEmployeeException("no employee");
-		}
-		else
-		{
-			emp=adminDao.save(employee);
-		}
+//		String email= adminDao.checkIfUserAlreadyExists(employee.getEmail());
+//		
+//		if(email==emp.getEmail())
+//		{
+//			throw new NoSuchEmployeeException("no employee");
+//		}
+//		else
+//		{
+//			emp=adminDao.save(employee);
+//		}
 		return emp;	
 	}
 	
 	@Override
 	public List<Employee> getEmployees()
 	{
-		List<Employee> lc1=adminDao.findAll();
+		List<Employee> lc1=empDao.findAll();
 		
 		return lc1;
 	}
@@ -49,11 +55,11 @@ public class AdminServiceImpl implements IAdminService {
 	public Employee modifyEmployee(Employee employee) throws Throwable {
 		int id=employee.getEmployeeId();
 		Supplier s1= ()->new NoSuchEmployeeException("Employee Does not exist in the database");
-		Employee emp=adminDao.findById(id).orElseThrow(s1);
+		Employee emp=empDao.findById(id).orElseThrow(s1);
 		
 		emp.setEmployeeName(emp.getEmployeeName());
 		emp.setPhone(emp.getPhone());
-		adminDao.save(emp);
+		empDao.save(emp);
 			
 		return emp;
 		
@@ -72,7 +78,7 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public List<Employee> findEmployeeById(int employeeId) throws NoSuchEmployeeException {
-		Optional<Employee> optional=adminDao.findById(employeeId);
+		Optional<Employee> optional=empDao.findById(employeeId);
 		Employee emp=optional.get();
 		if(optional.isPresent())
 		{
@@ -94,7 +100,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public List<Employee> findAllEmployee() throws NoSuchEmployeeException {
 		
-		return adminDao.findAll();
+		return empDao.findAll();
 	}
 
 	@Override
