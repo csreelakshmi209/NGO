@@ -2,6 +2,8 @@ package com.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.dao.NeedyPeopleRepository;
+import com.exception.NoSuchDonorException;
 import com.exception.NoSuchNeedyPeopleException;
 import com.model.Address;
+import com.model.Donor;
 import com.model.NeedyPeople;
 
 @SpringBootTest
@@ -42,5 +46,25 @@ class NeedyPeopleTest {
 		assertThat(needyService.registerNeedyPerson(p)).isEqualTo(p);
 		
 	}
-	
+	@Test
+	void login() throws  NoSuchDonorException, NoSuchNeedyPeopleException {
+		NeedyPeople needy=new NeedyPeople();
+		needy.setNeedyPersonId(1);
+		needy.setNeedyPersonName("mamatha");
+		needy.setPhone("345678");
+		needy.setFamilyIncome(5000);
+		needy.setAddress(null);
+		Address a=new Address();
+		a.setAddressId(1);
+		a.setCity("bangalore");
+		a.setState("Karnataka");
+		a.setLandmark("");
+		a.setPin("121002");
+		needy.setAddress(a);
+        Optional<NeedyPeople> n=Optional.of(needy);
+		
+		Mockito.when(needyRepo.findById(1)).thenReturn(n);
+		
+		assertThat(needyService.login(needy)).isEqualTo(needy);
+	}
 }
