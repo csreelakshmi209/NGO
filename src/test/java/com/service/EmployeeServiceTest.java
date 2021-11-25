@@ -16,7 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.dao.EmployeeRepository;
 import com.dao.NeedyPeopleRepository;
 import com.model.Address;
-import com.model.Employee;
 import com.model.NeedyPeople;
 
 @SpringBootTest

@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.dao.AdminRepository;
-import com.dao.EmployeeRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.Address;

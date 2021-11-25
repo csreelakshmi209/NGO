@@ -19,6 +19,8 @@ public class DonorServiceImpl implements IDonorService{
 	
 	@Autowired
 	DonationRepository donationRepo;
+	
+	Donor donor = null;
 	@Override
 	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
 		
@@ -62,23 +64,33 @@ public class DonorServiceImpl implements IDonorService{
 	}
 
 	@Override
-	public String forgotPassword(String username) {
+	public String forgotPassword(String username,String password) {
 		
-		return null;
+		if(donor.getDonorUsername().equals(username))
+		{
+			if(!donor.getDonorPassword().equals(password))
+			{
+				System.out.println("your password is not correct try to reset your password");
+				return password;
+			}
+		}
+		
+		return username;
 	}
 
 	@Override
-	public String resetPassword(String username,Donor donor) {
+	public String resetPassword(String username,String password) {
 	   if(donor.getDonorUsername().equals(username))
 	   {
-		   donor.setDonorPassword(username);
-	   }
+		   System.out.println("click here to reset your password");
+		   donor.setDonorPassword(password);	   
+		   }
 		return username;
 	}
 
 	@Override
 	public void emailPasswordToDonor(String email) {
-		System.out.println("click here for rest the password");
+		System.out.println("click here get your the password");
 		
 	}
 

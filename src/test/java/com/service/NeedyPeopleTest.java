@@ -1,11 +1,11 @@
 package com.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.dao.NeedyPeopleRepository;
@@ -13,10 +13,12 @@ import com.exception.NoSuchNeedyPeopleException;
 import com.model.Address;
 import com.model.NeedyPeople;
 
+@SpringBootTest
 class NeedyPeopleTest {
 
 	@MockBean
 	NeedyPeopleRepository needyRepo;
+	
 	
 	@Autowired
 	INeedyPeopleService needyService;
@@ -38,6 +40,7 @@ class NeedyPeopleTest {
 		p.setAddress(a);
 		Mockito.when(needyRepo.save(p)).thenReturn(p);
 		assertThat(needyService.registerNeedyPerson(p)).isEqualTo(p);
+		
 	}
 	
 }

@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.dao.DonorRepository;
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
 import com.model.Donation;
@@ -25,6 +29,8 @@ public class DonorController {
 
 	@Autowired
 	DonorServiceImpl donorService;
+	@Autowired
+	DonorRepository donorRepo;
 	
 	@PostMapping("/login/add")
     public  ResponseEntity<Donor> registerDonor(@Valid @RequestBody Donor donor) throws DuplicateDonorException{
@@ -41,6 +47,7 @@ public class DonorController {
         System.out.println("your login is completed");
         return new ResponseEntity<Donor>(user,HttpStatus.ACCEPTED);
     }
+	
 	
 	@PostMapping("/donation/add")
 	public ResponseEntity<?> donateToNGO(Donation donation){

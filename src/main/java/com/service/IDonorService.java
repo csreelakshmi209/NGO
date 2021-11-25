@@ -10,9 +10,9 @@ public interface IDonorService {
 	public Donor login(Donor donor) throws NoSuchDonorException;
 	public Donation donateToNGO(Donation donation);
 	public void sendThankyouMailToDonator(Donor donor);
-	public String forgotPassword(String username);
-	//public String resetPassword(String username);
+	public String forgotPassword(String username,String password);
+	
 	public void emailPasswordToDonor(String email);
-	public String resetPassword(String username, Donor donor);
+	public String resetPassword(String username, String password);
 
 }
