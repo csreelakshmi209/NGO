@@ -23,23 +23,24 @@ import com.model.Donor;
 class DonorServiceTest {
 	@MockBean
 	DonorRepository donorRepository;
-	
+
 	@MockBean
 	DonationRepository donationRepository;
 
 	@Autowired
-	 IDonorService donorService;
-	
+	IDonorService donorService;
+
+	// test case to register the donor
 	@Test
 	void registerDonor() throws DuplicateDonorException {
-		Donor d=new Donor();
+		Donor d = new Donor();
 		d.setDonorId(1);
 		d.setDonorName("Mayur");
 		d.setDonorEmail("abc@gmail.com");
 		d.setDonorPhone("7541239852");
 		d.setDonorUsername("Mayur");
 		d.setDonorPassword("456873");
-		Address a=new Address();
+		Address a = new Address();
 		a.setAddressId(1);
 		a.setCity("Noida");
 		a.setState("Delhi");
@@ -49,25 +50,28 @@ class DonorServiceTest {
 		Mockito.when(donorRepository.save(d)).thenReturn(d);
 		assertThat(donorService.registerDonor(d)).isEqualTo(d);
 	}
-	
+
+	// test case to donor login
 	@Test
 	void login() throws NoSuchDonorException {
-		Donor donor=new Donor();
+		Donor donor = new Donor();
 		donor.setDonorId(1);
 		donor.setDonorUsername("Mayur");
 		donor.setDonorPassword("456873");
-        Optional<Donor> d2=Optional.of(donor);
-		
+		Optional<Donor> d2 = Optional.of(donor);
+
 		Mockito.when(donorRepository.findById(1)).thenReturn(d2);
-		
+
 		assertThat(donorService.login(donor)).isEqualTo(donor);
 	}
+
+	// test case to donote to NGO
 	@Test
 	void donateToNGO() {
-		Donation dn=new Donation();
+		Donation dn = new Donation();
 		dn.setDonationId(101);
 		dn.setDonationAmount(50000);
-		DonationItem di=new DonationItem();
+		DonationItem di = new DonationItem();
 		di.setItemId(1);
 		di.setItemDescription("cloth");
 		dn.setItem(di);

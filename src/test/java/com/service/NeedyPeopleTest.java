@@ -22,20 +22,20 @@ class NeedyPeopleTest {
 
 	@MockBean
 	NeedyPeopleRepository needyRepo;
-	
-	
+
 	@Autowired
 	INeedyPeopleService needyService;
-	
+
+	// test case to register needy people
 	@Test
 	void testRegisterNeedyPerson() throws NoSuchNeedyPeopleException {
-		NeedyPeople p=new NeedyPeople();
+		NeedyPeople p = new NeedyPeople();
 		p.setNeedyPersonId(1);
 		p.setNeedyPersonName("mamatha");
 		p.setPhone("345678");
 		p.setFamilyIncome(5000);
 		p.setAddress(null);
-		Address a=new Address();
+		Address a = new Address();
 		a.setAddressId(1);
 		a.setCity("Noida");
 		a.setState("Delhi");
@@ -44,27 +44,29 @@ class NeedyPeopleTest {
 		p.setAddress(a);
 		Mockito.when(needyRepo.save(p)).thenReturn(p);
 		assertThat(needyService.registerNeedyPerson(p)).isEqualTo(p);
-		
+
 	}
+
+	// test case for needy people login
 	@Test
-	void login() throws  NoSuchDonorException, NoSuchNeedyPeopleException {
-		NeedyPeople needy=new NeedyPeople();
+	void login() throws NoSuchDonorException, NoSuchNeedyPeopleException {
+		NeedyPeople needy = new NeedyPeople();
 		needy.setNeedyPersonId(1);
 		needy.setNeedyPersonName("mamatha");
 		needy.setPhone("345678");
 		needy.setFamilyIncome(5000);
 		needy.setAddress(null);
-		Address a=new Address();
+		Address a = new Address();
 		a.setAddressId(1);
 		a.setCity("bangalore");
 		a.setState("Karnataka");
 		a.setLandmark("");
 		a.setPin("121002");
 		needy.setAddress(a);
-        Optional<NeedyPeople> n=Optional.of(needy);
-		
+		Optional<NeedyPeople> n = Optional.of(needy);
+
 		Mockito.when(needyRepo.findById(1)).thenReturn(n);
-		
+
 		assertThat(needyService.login(needy)).isEqualTo(needy);
 	}
 }

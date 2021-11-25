@@ -13,6 +13,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="admin")
 public class Admin implements Serializable{
+	
+	//admin fields
+	
 	@Id
 	@GeneratedValue
 	@Column(name="admin_id")
@@ -24,6 +27,8 @@ public class Admin implements Serializable{
 	@Size(min=8,message="password should have atleast 8 characters")
 	@Column(name="admin_password")
 	private String adminPassword;
+	
+	//getters and setters
 	
 	public int getAdminId() {
 		return adminId;
@@ -43,6 +48,8 @@ public class Admin implements Serializable{
 	public void setAdminPassword(String adminPassword) {
 		this.adminPassword = adminPassword;
 	}
+	
+	//to string
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + ", adminUsername=" + adminUsername + ", adminPassword=" + adminPassword

@@ -25,7 +25,7 @@ public class NeedyPeopleController {
 	NeedypeopleServiceImpl needyImpl;
 	
 	
-	
+	//register needy person
 	@PostMapping("/login/add")
     public  ResponseEntity<NeedyPeople> registerNeedyPerson(@Valid @RequestBody NeedyPeople person) throws NoSuchNeedyPeopleException{
         

@@ -20,16 +20,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="employee")
-public class Employee implements Serializable{
-	
+@Table(name = "employee")
+public class Employee implements Serializable {
 
+	// employee fields
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int employeeId;
-	
+
 	@NotNull
-	@Size(min=3,message="First Name should have atleast 3 characters")
+	@Size(min = 3, message = "First Name should have atleast 3 characters")
 	private String employeeName;
 	@NotNull
 	@Email
@@ -39,15 +39,15 @@ public class Employee implements Serializable{
 	@NotEmpty
 	private String username;
 	@NotNull
-	@Size(min=8,message="password should have atleast 8 characters")
+	@Size(min = 8, message = "password should have atleast 8 characters")
 	private String password;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="address_id")
+
+	// mapping to address
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
 	private Address address;
-	
-	
-	public Employee() {}
+
+	// getters and setters
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -104,6 +104,7 @@ public class Employee implements Serializable{
 		this.password = password;
 	}
 
+	// to string
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", email=" + email + ", phone="

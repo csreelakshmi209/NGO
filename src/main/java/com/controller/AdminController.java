@@ -31,6 +31,7 @@ public class AdminController {
 	@Autowired
 	EmployeeRepository empDao;
 
+	//welcome note
 	@RequestMapping("/Hello")
 	public String helloAdmin() {
 		String msg = "Welcome to Admin services";
@@ -44,7 +45,8 @@ public class AdminController {
 		Employee emp = adminService.addEmployee(employee);
 		return new ResponseEntity<Employee>(emp, HttpStatus.CREATED);
 	}
-
+	
+	//get all employees
 	@GetMapping("/employee/get")
 	public ResponseEntity<List<Employee>> getEmployees() {
 		List<Employee> lcl = adminService.getEmployees();
@@ -52,15 +54,16 @@ public class AdminController {
 		return re;
 	}
 
-	// modify
+	// modify employee details
 	@PutMapping(path = "/employee/update")
-	public ResponseEntity<Employee> modifyEmployee(@RequestBody Employee employee) throws Throwable {
+	public ResponseEntity<Employee> modifyEmployee(@RequestBody Employee employee) throws NoSuchEmployeeException, Throwable  {
 		Employee e1 = adminService.modifyEmployee(employee);
 
 		ResponseEntity<Employee> re = new ResponseEntity<Employee>(e1, HttpStatus.OK);
 		return re;
 	}
-
+	
+	//delete employee details
 	@DeleteMapping(path = "/employee/remove/{eid}")
 	public ResponseEntity<Employee> removeEmployee(@PathVariable int eid) throws NoSuchEmployeeException {
 		adminService.removeEmployee(eid);
@@ -69,13 +72,14 @@ public class AdminController {
 		return re;
 	}
 
+	//get employee by id
 	@GetMapping("/employee/{employeeId}")
 	public ResponseEntity<Employee> findEmployeeById(@PathVariable int employeeId) throws NoSuchEmployeeException {
 		Employee lc = adminService.findEmployeeById(employeeId);
 		ResponseEntity<Employee> re = new ResponseEntity<Employee>(lc, HttpStatus.OK);
 		return re;
 	}
-
+	//get employee by name
 	@GetMapping("/employee/{employeeName}")
 	public ResponseEntity<Employee> findEmployeeByName(@PathVariable String employeeName)
 			throws NoSuchEmployeeException {

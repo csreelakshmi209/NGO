@@ -32,6 +32,7 @@ public class DonorController {
 	@Autowired
 	DonorRepository donorRepo;
 	
+	//donor registration
 	@PostMapping("/login/add")
     public  ResponseEntity<Donor> registerDonor(@Valid @RequestBody Donor donor) throws DuplicateDonorException{
       
@@ -39,6 +40,7 @@ public class DonorController {
         return new ResponseEntity<Donor>(p,HttpStatus.CREATED);
     }
 	
+	//donor login
 	@GetMapping("/login/{donorUsername}/{donorPassword}")
     public ResponseEntity<Donor> login(@Valid @PathVariable("donorUsername") String donorUsername,@PathVariable("donorPassword") String donorPassword) throws NoSuchDonorException 
     {
@@ -48,7 +50,7 @@ public class DonorController {
         return new ResponseEntity<Donor>(user,HttpStatus.ACCEPTED);
     }
 	
-	
+	//donate to NGO
 	@PostMapping("/donation/add")
 	public ResponseEntity<?> donateToNGO(Donation donation){
 		Donation addDonation =donorService.donateToNGO(donation);

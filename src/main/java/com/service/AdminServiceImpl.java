@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.AdminRepository;
-import com.dao.EmployeeRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.DonationDistribution;
@@ -17,33 +16,39 @@ import com.model.Employee;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
+	//employee services that was handled by the admin
+	
 	@Autowired
 	AdminRepository adminRepo;
 
+//implementation methods
 
+	// add method for employee
 	@Override
 	public Employee addEmployee(Employee employee) throws DuplicateEmployeeException, SQLException {
 		int id = employee.getEmployeeId();
 		if (id == 0) {
 			throw new DuplicateEmployeeException();
 		} else {
-			Employee emp = adminRepo.save(employee);
+			adminRepo.save(employee);
 		}
 		return employee;
 	}
 
+	// get all employees data
 	@Override
 	public List<Employee> getEmployees() {
-		List<Employee> lc1 = adminRepo.findAll();
+		List<Employee> e = adminRepo.findAll();
 
-		return lc1;
+		return e;
 	}
+
+	// update the employee details
 
 	@Override
 	public Employee modifyEmployee(Employee employee) throws Throwable {
 		int id = employee.getEmployeeId();
 		Supplier s1 = () -> new NoSuchEmployeeException("Employee Does not exist in the database");
-		@SuppressWarnings("unchecked")
 		Employee emp = adminRepo.findById(id).orElseThrow(s1);
 
 		emp.setEmployeeName(emp.getEmployeeName());
@@ -51,9 +56,9 @@ public class AdminServiceImpl implements IAdminService {
 		adminRepo.save(emp);
 
 		return emp;
-
 	}
 
+	// remove the employee data
 	@Override
 	public String removeEmployee(int employeeId) throws NoSuchEmployeeException {
 		if (employeeId != 0)
@@ -65,6 +70,7 @@ public class AdminServiceImpl implements IAdminService {
 
 	}
 
+	// find employee by using id
 	@Override
 	public Employee findEmployeeById(int employeeId) throws NoSuchEmployeeException {
 		Optional<Employee> optional = adminRepo.findById(employeeId);
@@ -77,19 +83,19 @@ public class AdminServiceImpl implements IAdminService {
 
 	}
 
+	// find employee by using name
 	@Override
 	public Employee findEmployeeByName(String name) throws NoSuchEmployeeException {
-		Employee e=adminRepo.findByEmployeeName(name);
+		Employee e = adminRepo.findByEmployeeName(name);
 		return e;
 
 	}
 
+	// final check to approve donation
 	@Override
 	public boolean approveDonation(DonationDistribution distribution) {
 		System.out.println("donation was approved");
 		return false;
 	}
-	
-
 
 }

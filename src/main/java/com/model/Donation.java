@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="donation")
 public class Donation implements Serializable{
+	//donation fields
+	
 	@Id
 	@GeneratedValue
 	@Column(name="donation_id")
@@ -65,6 +67,7 @@ public class Donation implements Serializable{
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
 	}
+	//to string
 	@Override
 	public String toString() {
 		return "Donation [donationId=" + donationId + ", donationAmount=" + donationAmount + ", donationDate="

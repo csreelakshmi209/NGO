@@ -18,6 +18,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="address")
 public class Address implements Serializable{
+	
+	//address fields 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="address_id",nullable=false)
@@ -30,16 +33,7 @@ public class Address implements Serializable{
 	private String pin;
 	private String landmark;
 	
-//	@OneToOne(fetch =FetchType.LAZY,cascade=CascadeType.ALL,mappedBy="address")
-//	private NeedyPeople needyPeople;
-//	
-//	@OneToOne(cascade=CascadeType.ALL,mappedBy="address")
-//	private Employee employee;
-//	
-//	@OneToOne(cascade=CascadeType.ALL,mappedBy="address")
-//	private Donor donor;
-	
-	
+	//getters and setters
 	public int getAddressId() {
 		return addressId;
 	}
@@ -70,6 +64,7 @@ public class Address implements Serializable{
 	public void setLandmark(String landmark) {
 		this.landmark = landmark;
 	}
+	//to string
 	@Override
 	public String toString() {
 		return "Address [addressId=" + addressId + ", city=" + city + ", state=" + state + ", pin=" + pin

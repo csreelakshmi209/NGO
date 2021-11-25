@@ -16,6 +16,6 @@ public interface IEmployeeService {
 	public NeedyPeople findNeedyPeopleById(int id);
 	public NeedyPeople findNeedyPeopleByName(String name);
 	public List<NeedyPeople> findAllNeedyPeople();
-	public String helpNeedyPerson(DonationDistribution distribute);
+	
 	
 }
