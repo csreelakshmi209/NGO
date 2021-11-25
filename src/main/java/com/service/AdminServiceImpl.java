@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.AdminRepository;
 import com.dao.EmployeeRepository;
-import com.dao.IAdminRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.DonationDistribution;
@@ -17,90 +17,77 @@ import com.model.Employee;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
-		@Autowired
-	IAdminRepository adminDao;
-		
 	@Autowired
-	EmployeeRepository empDao;
-	
-	Employee employee;
-	
+	AdminRepository adminRepo;
+
+
 	@Override
-	public Employee addEmployee(Employee emp)  {
-		
-		emp=empDao.save(employee);
-		
-//		String email= adminDao.checkIfUserAlreadyExists(employee.getEmail());
-//		
-//		if(email==emp.getEmail())
-//		{
-//			throw new NoSuchEmployeeException("no employee");
-//		}
-//		else
-//		{
-//			emp=adminDao.save(employee);
-//		}
-		return emp;	
+	public Employee addEmployee(Employee employee) throws DuplicateEmployeeException, SQLException {
+		int id = employee.getEmployeeId();
+		if (id == 0) {
+			throw new DuplicateEmployeeException();
+		} else {
+			Employee emp = adminRepo.save(employee);
+		}
+		return employee;
 	}
-	
+
 	@Override
-	public List<Employee> getEmployees()
-	{
-		List<Employee> lc1=empDao.findAll();
-		
+	public List<Employee> getEmployees() {
+		List<Employee> lc1 = adminRepo.findAll();
+
 		return lc1;
 	}
 
 	@Override
 	public Employee modifyEmployee(Employee employee) throws Throwable {
-		int id=employee.getEmployeeId();
-		Supplier s1= ()->new NoSuchEmployeeException("Employee Does not exist in the database");
-		Employee emp=empDao.findById(id).orElseThrow(s1);
-		
+		int id = employee.getEmployeeId();
+		Supplier s1 = () -> new NoSuchEmployeeException("Employee Does not exist in the database");
+		@SuppressWarnings("unchecked")
+		Employee emp = adminRepo.findById(id).orElseThrow(s1);
+
 		emp.setEmployeeName(emp.getEmployeeName());
 		emp.setPhone(emp.getPhone());
-		empDao.save(emp);
-			
+		adminRepo.save(emp);
+
 		return emp;
-		
+
 	}
 
 	@Override
 	public String removeEmployee(int employeeId) throws NoSuchEmployeeException {
-		if(employeeId!=0)
-		adminDao.deleteById(employeeId);
-		
+		if (employeeId != 0)
+			adminRepo.deleteById(employeeId);
+
 		else
 			throw new NoSuchEmployeeException("Employee is not there in database");
 		return "deleted";
-		
+
 	}
 
 	@Override
-	public List<Employee> findEmployeeById(int employeeId) throws NoSuchEmployeeException {
-		Optional<Employee> optional=empDao.findById(employeeId);
-		Employee emp=optional.get();
-		if(optional.isPresent())
-		{
-			adminDao.getById(employeeId);
-			return (List<Employee>) emp;
-		}
-		else
-			throw new NoSuchEmployeeException("employee doesnt found");
-		
+	public Employee findEmployeeById(int employeeId) throws NoSuchEmployeeException {
+		Optional<Employee> optional = adminRepo.findById(employeeId);
+		Employee emp = optional.get();
+		if (optional.isPresent()) {
+			adminRepo.getById(employeeId);
+			return emp;
+		} else
+			throw new NoSuchEmployeeException("No Such Employee Found");
+
 	}
 
 	@Override
-	public List<Employee> findEmployeeByName(String name) throws NoSuchEmployeeException {
-		
-		return adminDao.findmployeeByName(name);
-		
+	public Employee findEmployeeByName(String name) throws NoSuchEmployeeException {
+		Employee e=adminRepo.findByEmployeeName(name);
+		return e;
+
 	}
 
 	@Override
 	public List<Employee> findAllEmployee() throws NoSuchEmployeeException {
-		
-		return empDao.findAll();
+
+		return adminRepo.findAll();
 	}
 
 	@Override
@@ -108,7 +95,6 @@ public class AdminServiceImpl implements IAdminService {
 		System.out.println("donation was approved");
 		return false;
 	}
-
 	
 
 

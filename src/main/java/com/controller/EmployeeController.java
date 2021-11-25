@@ -30,29 +30,29 @@ public class EmployeeController {
 		String msg="Welcome to NeedyPeople services";
 		return msg;
 	}
-	@PostMapping("NeedyPerson/add")
+	@PostMapping("needyPerson/add")
 	public ResponseEntity<NeedyPeople> addNeedyPerson(@Valid @RequestBody NeedyPeople person) {
 		NeedyPeople p=empService.addNeedyPerson(person);
 		return new ResponseEntity<>(p,HttpStatus.CREATED);
 	}
-	@DeleteMapping(path="NeedyPerson/delete")
+	@DeleteMapping(path="needyPerson/delete")
 	public ResponseEntity<String> deleteNeedyPerson(@RequestBody NeedyPeople person) {
 		empService.removeNeedyPerson(person);
 		ResponseEntity re=new ResponseEntity<String>("Deleted",HttpStatus.OK);
 		return re;
 	}
-	@GetMapping(path="/getNeedyPeopleById/{id}")
+	@GetMapping(path="/needyPeople/getById/{id}")
 	public ResponseEntity<NeedyPeople> getNeedyPeopleById(@PathVariable("id")  int id) {
 		NeedyPeople p=empService.findNeedyPeopleById(id);
 		return new ResponseEntity<NeedyPeople>(p, HttpStatus.OK);
 	}
 
-	@GetMapping(path="/getNeedyPeopleByName/{name}")
-	public ResponseEntity<List<NeedyPeople>> getNeedyPeopleByName(@PathVariable("name") String name) {
-		List<NeedyPeople> l=empService.findNeedyPeopleByName(name);
-		return new ResponseEntity<List<NeedyPeople>>(l, HttpStatus.OK);
+	@GetMapping(path="/needyPeople/getByName/{name}")
+	public ResponseEntity<NeedyPeople> getNeedyPeopleByName(@PathVariable("name") String name) {
+		NeedyPeople n=empService.findNeedyPeopleByName(name);
+		return new ResponseEntity<NeedyPeople>(n, HttpStatus.OK);
 	}
-	@GetMapping(path="/getAllNeedyPeople")
+	@GetMapping(path="/needyPeople/getAll")
 	public ResponseEntity<List<NeedyPeople>> getAllNeedyPeople() {
 		return new ResponseEntity<List<NeedyPeople>>(empService.findAllNeedyPeople(), HttpStatus.OK);
 	}

@@ -14,25 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.dao.AdminRepository;
 import com.dao.EmployeeRepository;
-import com.dao.IAdminRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
+import com.model.Address;
 import com.model.Employee;
 
 @SpringBootTest
 class AdminServiceTest {
 
 	@Autowired
-	AdminServiceImpl adminService;
-
-	@MockBean
-	EmployeeRepository empDao;
+	IAdminService adminService;
 	
 	@MockBean
-	IAdminRepository adminDao;
+	AdminRepository adminRepo;
 	@Test
-	void testAddEmployee() {
+	void testAddEmployee() throws DuplicateEmployeeException, SQLException{
 		Employee e=new Employee();
 		e.setEmployeeId(1);
 		e.setEmployeeName("sreelakshmi");
@@ -41,36 +39,61 @@ class AdminServiceTest {
 		e.setUsername("SREELAK");
 		e.setPassword("abc123");
 		
-		Mockito.when(empDao.save(e)).thenReturn(e);
+		Address a = new Address();
+		a.setAddressId(1);
+		a.setCity("Noida");
+		a.setState("Delhi");
+		a.setLandmark("");
+		a.setPin("121002");
+
+		e.setAddress(a);
+		Mockito.when(adminRepo.save(e)).thenReturn(e);
 		assertThat(adminService.addEmployee(e)).isEqualTo(e);
 	}
 	
 	@Test
 	void testGetEmployees() {
-		Employee employee=new Employee();
-		employee.setEmployeeName("sreelakshmi");
-		employee.setEmail("sree@gmail.com");
-		employee.setPhone("987654321");
-		employee.setUsername("SREELAK");
-		employee.setPassword("abc123");
+		Employee e1=new Employee();
+		e1.setEmployeeId(1);
+		e1.setEmployeeName("sreelakshmi");
+		e1.setEmail("sree@gmail.com");
+		e1.setPhone("987654321");
+		e1.setUsername("SREELAK");
+		e1.setPassword("abc123");
 		
-		Employee employee2=new Employee();
-		employee2.setEmployeeName("varsha");
-		employee2.setEmail("varsha@gmail.com");
-		employee2.setPhone("967654321");
-		employee.setUsername("VARSHANAMRATHA");
-		employee.setPassword("abc456");
+		Address a1 = new Address();
+		a1.setAddressId(1);
+		a1.setCity("Noida");
+		a1.setState("Delhi");
+		a1.setLandmark("");
+		a1.setPin("121002");
+		e1.setAddress(a1);
+		
+		Employee e2=new Employee();
+		e2.setEmployeeName("varsha");
+		e2.setEmail("varsha@gmail.com");
+		e2.setPhone("967654321");
+		e2.setUsername("VARSHANAMRATHA");
+		e2.setPassword("abc456");
 
+		Address a2 = new Address();
+		a2.setAddressId(2);
+		a2.setCity("Kolkata");
+		a2.setState("West Bengal");
+		a2.setLandmark("");
+		a2.setPin("700101");
+
+		e2.setAddress(a2);
 		 List<Employee> empList=new ArrayList<>();
-		 empList.add(employee);
-		 empList.add(employee2);
+		 empList.add(e1);
+		 empList.add(e2);
 		 
-		 Mockito.when(empDao.findAll()).thenReturn(empList);
+		 Mockito.when(adminRepo.findAll()).thenReturn(empList);
 		 assertThat(adminService.getEmployees()).isEqualTo(empList);
 	}
 
 	@Test
-	void testFindEmployeeById() throws Throwable {
+	void testFindEmployeeById() throws NoSuchEmployeeException {
 		Employee e=new Employee();
 		e.setEmployeeId(1);
 		e.setEmployeeName("sreelakshmi");
@@ -78,22 +101,41 @@ class AdminServiceTest {
 		e.setPhone("987654321");
 		e.setUsername("SREELAK");
 		e.setPassword("abc123");
+		
+		Address a = new Address();
+		a.setAddressId(1);
+		a.setCity("Noida");
+		a.setState("Delhi");
+		a.setLandmark("");
+		a.setPin("121002");
+
+		e.setAddress(a);
+		
 		Optional<Employee> c2=Optional.of(e);
-		Mockito.when(empDao.findById(1)).thenReturn(c2);
+		Mockito.when(adminRepo.findById(1)).thenReturn(c2);
 		assertThat(adminService.findEmployeeById(1)).isEqualTo(e);
 	}
 	@Test
 	void testRemoveEmployee() {
-		Employee employee=new Employee();
-		employee.setEmployeeId(1);
-		employee.setEmployeeName("sreelakshmi");
-		employee.setEmail("sree@gmail.com");
-		employee.setPhone("987654321");
-		employee.setUsername("SREELAK");
-		employee.setPassword("abc123");
-		Optional<Employee> c2=Optional.of(employee);
-		Mockito.when(empDao.findById(1)).thenReturn(c2);
-		Mockito.when(empDao.existsById(employee.getEmployeeId())).thenReturn(false);
-		assertFalse(empDao.existsById(employee.getEmployeeId()));
+		Employee e=new Employee();
+		e.setEmployeeId(1);
+		e.setEmployeeName("sreelakshmi");
+		e.setEmail("sree@gmail.com");
+		e.setPhone("987654321");
+		e.setUsername("SREELAK");
+		e.setPassword("abc123");
+		
+		Address a = new Address();
+		a.setAddressId(1);
+		a.setCity("Noida");
+		a.setState("Delhi");
+		a.setLandmark("");
+		a.setPin("121002");
+
+		e.setAddress(a);
+		Optional<Employee> c2=Optional.of(e);
+		Mockito.when(adminRepo.findById(1)).thenReturn(c2);
+		Mockito.when(adminRepo.existsById(e.getEmployeeId())).thenReturn(false);
+		assertFalse(adminRepo.existsById(e.getEmployeeId()));
 	}
 }

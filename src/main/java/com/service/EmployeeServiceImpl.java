@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.dao.AdminRepository;
 import com.dao.EmployeeRepository;
-import com.dao.IEmployeeRepository;
-import com.dao.INeedyPeopleRepository;
 import com.dao.NeedyPeopleRepository;
 import com.exception.NoSuchEmployeeException;
 import com.exception.NoSuchNeedyPeopleException;
@@ -24,11 +22,11 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	@Autowired
 	 EmployeeRepository empRepo;
 	
-	@Autowired
-	 IEmployeeRepository empDao;
 	
 	@Autowired
 	NeedyPeopleRepository needyRepo;
+	
+	
 	@Override
 	public Employee login(Employee employee) throws NoSuchEmployeeException,SQLException {
 		Employee emp=empRepo.findById(employee.getEmployeeId()).orElse(null);
@@ -68,9 +66,10 @@ public class EmployeeServiceImpl implements IEmployeeService{
 			}
 
 	@Override
-	public List<NeedyPeople> findNeedyPeopleByName(String name) {
+	public NeedyPeople findNeedyPeopleByName(String name) {
 		
-		return needyRepo.findAll();
+		NeedyPeople n=needyRepo.findByNeedyPersonName(name);
+		return n;
 		//return empRepo.findAll();
 		
 	}

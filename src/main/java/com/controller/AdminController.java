@@ -3,6 +3,8 @@ package com.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class AdminController {
 	}
 	//add employee
 	@PostMapping("/employee/add")
-	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws  SQLException, NoSuchEmployeeException
+	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) throws  SQLException, NoSuchEmployeeException, DuplicateEmployeeException
 	{
 		Employee emp=adminService.addEmployee(employee);
 		return new ResponseEntity<Employee>(emp,HttpStatus.CREATED);
@@ -71,18 +73,18 @@ public class AdminController {
 	}
 	
 	@GetMapping("/employee/{employeeId}")
-	public ResponseEntity<List<Employee>> findEmployeeById(@PathVariable int employeeId) throws NoSuchEmployeeException 
+	public ResponseEntity<Employee> findEmployeeById(@PathVariable int employeeId) throws NoSuchEmployeeException 
 	{
-		List<Employee> lc=adminService.findEmployeeById(employeeId);
-		ResponseEntity re=new ResponseEntity<List<Employee>>(lc,HttpStatus.OK);
+		Employee lc=adminService.findEmployeeById(employeeId);
+		ResponseEntity re=new ResponseEntity<Employee>(lc,HttpStatus.OK);
 		return re;
 	}
 	
 	@GetMapping("/employee/{employeeName}")
-	public ResponseEntity<List<Employee>> findEmployeeByName(@PathVariable String employeeName) throws NoSuchEmployeeException 
+	public ResponseEntity<Employee> findEmployeeByName(@PathVariable String employeeName) throws NoSuchEmployeeException 
 	{
-		List<Employee> lc=adminService.findEmployeeByName(employeeName);
-		ResponseEntity re=new ResponseEntity<List<Employee>>(lc,HttpStatus.OK);
+		Employee lc=adminService.findEmployeeByName(employeeName);
+		ResponseEntity re=new ResponseEntity<Employee>(lc,HttpStatus.OK);
 		return re;
 	}
 	

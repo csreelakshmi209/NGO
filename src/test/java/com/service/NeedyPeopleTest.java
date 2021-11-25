@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.dao.INeedyPeopleRepository;
 import com.dao.NeedyPeopleRepository;
 import com.exception.NoSuchNeedyPeopleException;
 import com.model.Address;

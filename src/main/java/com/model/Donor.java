@@ -45,8 +45,7 @@ public class Donor implements Serializable{
 	@JoinColumn(name="address_id")
 	private Address address;
 	
-//	@OneToOne(cascade=CascadeType.ALL,mappedBy="donor")
-//	private Donation donation;
+	public Donor() {}
 	
 	public Donor(String donorUsername2, String donorPassword2) {
 		this.donorUsername=donorUsername;

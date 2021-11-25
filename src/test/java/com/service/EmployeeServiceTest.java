@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.dao.EmployeeRepository;
 import com.dao.NeedyPeopleRepository;
 import com.model.Address;
+import com.model.Employee;
 import com.model.NeedyPeople;
 
 @SpringBootTest
@@ -88,6 +89,41 @@ public class EmployeeServiceTest {
 		Optional<NeedyPeople> p1=Optional.of(p);
 		Mockito.when(needyPeopleRepo.findById(1)).thenReturn(p1);
 		assertThat(empService.findNeedyPeopleById(1)).isEqualTo(p);
+	}
+	@Test
+	void testFindAllNeedyPeople() {
+		NeedyPeople p1=new NeedyPeople();
+		p1.setNeedyPersonId(1);
+		p1.setNeedyPersonName("Rakesh");
+		p1.setPhone("9999999999");
+		p1.setFamilyIncome(5000.0);
+		Address a1=new Address();
+		a1.setAddressId(1);
+		a1.setCity("Noida");
+		a1.setState("Delhi");
+		a1.setLandmark("");
+		a1.setPin("121002");
+		p1.setAddress(a1);
+		
+		NeedyPeople p2=new NeedyPeople();
+		p2.setNeedyPersonId(2);
+		p2.setNeedyPersonName("Rahul");
+		p2.setPhone("9999988888");
+		p2.setFamilyIncome(9000.0);
+		Address a2=new Address();
+		a2.setAddressId(2);
+		a2.setCity("Kolkata");
+		a2.setState("West Bengal");
+		a2.setLandmark("");
+		a2.setPin("700101");
+		p2.setAddress(a2);
+		
+		List<NeedyPeople> l=new ArrayList<>();
+		l.add(p1);
+		l.add(p2);
+		
+		Mockito.when(needyPeopleRepo.findAll()).thenReturn(l);
+		assertThat(empService.findAllNeedyPeople()).isEqualTo(l);
 	}
 
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.DonationRepository;
-import com.dao.IDonorRepository;
+import com.dao.DonorRepository;
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
 import com.model.Donation;
@@ -17,28 +17,21 @@ import com.model.Donor;
 public class DonorServiceImpl implements IDonorService{
 
 	@Autowired
-	IDonorRepository donorRepo;
+	DonorRepository donorRepo;
 	
 	@Autowired
 	DonationRepository donationRepo;
 	@Override
 	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
 		
-		Optional<Donor> optRecord = donorRepo.findUserExists(donor);
-		if(optRecord.isPresent()){
-		  return optRecord.get();
-		}else{
-			donorRepo.save(donor);
+		String email= donorRepo.checkIfUserAlreadyExists(donor.getDonorEmail());
+		if(email == donor.getDonorEmail()){
+	            throw new DuplicateDonorException("User already exists for this email");
+	        }
+		else
+		{
+			return donorRepo.save(donor);
 		}
-//		String email= donorRepo.checkIfUserAlreadyExists(donor.getDonorEmail());
-//		if(email == donor.getDonorEmail()){
-//	            throw new DuplicateDonorException("User already exists for this email");
-//	        }
-//		else
-//		{
-//			return donorRepo.save(donor);
-//		}
-		return donor;
 	    }
 	@Override
 	public Donor login(Donor donor) throws NoSuchDonorException {
@@ -72,7 +65,7 @@ public class DonorServiceImpl implements IDonorService{
 
 	@Override
 	public String forgotPassword(String username) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

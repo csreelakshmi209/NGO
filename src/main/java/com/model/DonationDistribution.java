@@ -20,6 +20,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="donation_distributions")
 public class DonationDistribution implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="distribution_id")
@@ -101,5 +105,6 @@ public class DonationDistribution implements Serializable{
 				+ ", dateOfDistribution=" + dateOfDistribution + ", approvalOrRejectedDate=" + approvalOrRejectedDate
 				+ ", status=" + status + ", person=" + person + ", employee=" + employee + ", item=" + item + "]";
 	}
+	
 
 }

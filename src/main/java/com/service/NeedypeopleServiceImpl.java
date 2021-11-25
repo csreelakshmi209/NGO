@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.INeedyPeopleRepository;
 import com.dao.NeedyPeopleRepository;
 import com.exception.NoSuchDonorException;
 import com.exception.NoSuchNeedyPeopleException;
@@ -15,14 +14,12 @@ import com.model.NeedyPeople;
 @Service
 public class NeedypeopleServiceImpl implements INeedyPeopleService{
 
-	@Autowired
-	INeedyPeopleRepository needyPeopleDao;
 	
 	@Autowired
 	NeedyPeopleRepository needyRepo;
 	@Override
 	public NeedyPeople registerNeedyPerson(NeedyPeople person) throws NoSuchNeedyPeopleException {
-		String num=needyPeopleDao.checkIfUserAlreadyExists(person.getPhone());
+		String num=needyRepo.checkIfUserAlreadyExists(person.getPhone());
 		if(num == person.getPhone() )
 		{
 			throw new NoSuchNeedyPeopleException("User already exists for this phone");
@@ -36,7 +33,7 @@ public class NeedypeopleServiceImpl implements INeedyPeopleService{
 	@Override
 	public NeedyPeople login(NeedyPeople person) throws NoSuchNeedyPeopleException, NoSuchDonorException{
 		
-		NeedyPeople needid=needyPeopleDao.findById(person.getNeedyPersonId()).orElse(null);
+		NeedyPeople needid=needyRepo.findById(person.getNeedyPersonId()).orElse(null);
 		if(needid==null) {
 			String NoSuchNeedyPeople="No needy found by the needy id"+person.getNeedyPersonId();
 			throw new NoSuchNeedyPeopleException("no such needy person");
