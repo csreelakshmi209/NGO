@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="address")
@@ -21,8 +22,11 @@ public class Address implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="address_id",nullable=false)
 	private int addressId;
+	@NotNull
 	private String city;
+	@NotNull
 	private String state;
+	@NotNull
 	private String pin;
 	private String landmark;
 	

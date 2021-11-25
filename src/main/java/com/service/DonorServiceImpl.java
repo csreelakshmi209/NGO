@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +23,22 @@ public class DonorServiceImpl implements IDonorService{
 	DonationRepository donationRepo;
 	@Override
 	public Donor registerDonor(Donor donor) throws DuplicateDonorException {
-		String email= donorRepo.checkIfUserAlreadyExists(donor.getDonorEmail());
-		if(email == donor.getDonorEmail()){
-	            throw new DuplicateDonorException("User already exists for this email");
-	        }
-		else
-		{
-			return donorRepo.save(donor);
+		
+		Optional<Donor> optRecord = donorRepo.findUserExists(donor);
+		if(optRecord.isPresent()){
+		  return optRecord.get();
+		}else{
+			donorRepo.save(donor);
 		}
+//		String email= donorRepo.checkIfUserAlreadyExists(donor.getDonorEmail());
+//		if(email == donor.getDonorEmail()){
+//	            throw new DuplicateDonorException("User already exists for this email");
+//	        }
+//		else
+//		{
+//			return donorRepo.save(donor);
+//		}
+		return donor;
 	    }
 	@Override
 	public Donor login(Donor donor) throws NoSuchDonorException {

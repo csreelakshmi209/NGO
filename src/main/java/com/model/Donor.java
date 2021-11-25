@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="donor")
@@ -19,14 +22,22 @@ public class Donor implements Serializable{
 	@GeneratedValue
 	@Column(name="donor_id")
 	private int donorId;
+	@NotNull
+	@Size(min=3,message="First Name should have atleast 3 characters")
 	@Column(name="donor_name")
 	private String donorName;
+	@NotNull
+	@Email
 	@Column(name="donor_email",unique=true)
 	private String donorEmail;
+	@NotNull
 	@Column(name="donor_phone")
 	private String donorPhone;
+	@NotNull
 	@Column(name="donor_username")
 	private String donorUsername;
+	@NotNull
+	@Size(min=8,message="password should have atleast 8 characters")
 	@Column(name="donor_password")
 	private String donorPassword;
 	

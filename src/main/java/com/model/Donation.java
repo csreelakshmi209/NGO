@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="donation")
@@ -22,6 +23,7 @@ public class Donation implements Serializable{
 	private int donationId;
 	@Column(name="donation_amount")
 	private double donationAmount;
+	@NotNull
 	@Column(name="donation_date")
 	private Date donationDate;
 	

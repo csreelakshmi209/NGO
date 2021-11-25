@@ -2,6 +2,8 @@ package com.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class EmployeeController {
 		return msg;
 	}
 	@PostMapping("NeedyPerson/add")
-	public ResponseEntity<NeedyPeople> addNeedyPerson(@RequestBody NeedyPeople person) {
+	public ResponseEntity<NeedyPeople> addNeedyPerson(@Valid @RequestBody NeedyPeople person) {
 		NeedyPeople p=empService.addNeedyPerson(person);
 		return new ResponseEntity<>(p,HttpStatus.CREATED);
 	}

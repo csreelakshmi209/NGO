@@ -7,34 +7,45 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="employee")
 public class Employee implements Serializable{
-	private static final long serialVersionUID = 1L;
+	
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int employeeId;
 	
+	@NotNull
+	@Size(min=3,message="First Name should have atleast 3 characters")
 	private String employeeName;
+	@NotNull
+	@Email
 	private String email;
+	@NotEmpty
 	private String phone;
+	@NotEmpty
 	private String username;
+	@NotNull
+	@Size(min=8,message="password should have atleast 8 characters")
 	private String password;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="address_id")
 	private Address address;
 	
-//	@OneToOne(cascade=CascadeType.ALL,mappedBy="employee")
-//	private DonationDistribution donationDistribution;
 	
 	public Employee() {}
 	public int getEmployeeId() {
