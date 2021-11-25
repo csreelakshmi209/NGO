@@ -1,8 +1,6 @@
 package com.service;
 
-import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,8 +68,11 @@ public class DonorServiceImpl implements IDonorService{
 	}
 
 	@Override
-	public String resetPassword(String username) {
-	   
+	public String resetPassword(String username,Donor donor) {
+	   if(donor.getDonorUsername().equals(username))
+	   {
+		   donor.setDonorPassword(username);
+	   }
 		return username;
 	}
 

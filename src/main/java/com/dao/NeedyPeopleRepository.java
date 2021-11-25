@@ -11,8 +11,8 @@ public interface NeedyPeopleRepository extends JpaRepository<NeedyPeople, Intege
 
 	NeedyPeople findByNeedyPersonName(String name);
 
-	 @Query(value="Select phone from needy_people",nativeQuery = true)
-	 String checkIfUserAlreadyExists(String phone);
+//	 @Query(value="Select phone from needy_people",nativeQuery = true)
+//	 String checkIfNeedyAlreadyExists(String phone);
 	
 
 }

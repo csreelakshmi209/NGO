@@ -85,12 +85,6 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public List<Employee> findAllEmployee() throws NoSuchEmployeeException {
-
-		return adminRepo.findAll();
-	}
-
-	@Override
 	public boolean approveDonation(DonationDistribution distribution) {
 		System.out.println("donation was approved");
 		return false;

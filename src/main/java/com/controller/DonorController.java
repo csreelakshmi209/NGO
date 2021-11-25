@@ -1,5 +1,7 @@
 package com.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,42 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.exception.DuplicateDonorException;
 import com.exception.NoSuchDonorException;
-import com.exception.NoSuchNeedyPeopleException;
 import com.model.Donation;
 import com.model.Donor;
-import com.model.NeedyPeople;
 import com.service.DonorServiceImpl;
-import com.service.IDonorService;
 
 @RestController
 @RequestMapping(path="/donor")
 public class DonorController {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(DonorController.class);
 	@Autowired
 	DonorServiceImpl donorService;
 	
 	@PostMapping("/login/add")
-    public  ResponseEntity<Donor> registerDonor(@RequestBody Donor donor) throws DuplicateDonorException{
-        LOGGER.info("add-user URL is opened");
-        LOGGER.info("registerDonor() is initiated");
-        Donor p = donorService.registerDonor(donor);
-        LOGGER.info("registerDonor() has executed");
+    public  ResponseEntity<Donor> registerDonor(@Valid @RequestBody Donor donor) throws DuplicateDonorException{
+      
+		Donor p = donorService.registerDonor(donor);
         return new ResponseEntity<Donor>(p,HttpStatus.CREATED);
     }
 	
 	@GetMapping("/login/{donorUsername}/{donorPassword}")
-    public ResponseEntity<Donor> login(@PathVariable("donorUsername") String donorUsername,@PathVariable("donorPassword") String donorPassword) throws NoSuchDonorException 
+    public ResponseEntity<Donor> login(@Valid @PathVariable("donorUsername") String donorUsername,@PathVariable("donorPassword") String donorPassword) throws NoSuchDonorException 
     {
-        LOGGER.info("login URL is opened");
-        LOGGER.info("login() is initiated");
-      
         Donor user1 = new Donor(donorUsername,donorPassword);
         Donor user = donorService.login(user1);
-        LOGGER.info("login() has Executed");
         System.out.println("your login is completed");
         return new ResponseEntity<Donor>(user,HttpStatus.ACCEPTED);
     }
@@ -56,4 +47,7 @@ public class DonorController {
 		Donation addDonation =donorService.donateToNGO(donation);
 		return new ResponseEntity<Donation>(addDonation,HttpStatus.CREATED);
 	}
+	
+	
+	
 }

@@ -16,7 +16,6 @@ public interface IAdminService {
 	public String removeEmployee(int employeeId) throws NoSuchEmployeeException;
 	public Employee findEmployeeById(int employeeId) throws NoSuchEmployeeException;
 	public Employee findEmployeeByName(String name) throws NoSuchEmployeeException;
-	public List<Employee> findAllEmployee() throws NoSuchEmployeeException;
 	public boolean approveDonation(DonationDistribution distribution);
 	List<Employee> getEmployees();
 	

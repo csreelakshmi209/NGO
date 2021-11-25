@@ -1,5 +1,7 @@
 package com.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,9 @@ public class NeedyPeopleController {
 	
 	
 	@PostMapping("/login/add")
-    public  ResponseEntity<NeedyPeople> registerNeedyPerson(@RequestBody NeedyPeople person) throws NoSuchNeedyPeopleException{
-        LOGGER.info("add-user URL is opened");
-        LOGGER.info("registerNeedyPerson() is initiated");
+    public  ResponseEntity<NeedyPeople> registerNeedyPerson(@Valid @RequestBody NeedyPeople person) throws NoSuchNeedyPeopleException{
+        
         NeedyPeople p = needyImpl.registerNeedyPerson(person);
-        LOGGER.info("registerNeedyPerson() has executed");
         return new ResponseEntity<NeedyPeople>(person,HttpStatus.CREATED);
     }
 }

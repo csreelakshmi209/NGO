@@ -19,10 +19,11 @@ public class NeedypeopleServiceImpl implements INeedyPeopleService{
 	NeedyPeopleRepository needyRepo;
 	@Override
 	public NeedyPeople registerNeedyPerson(NeedyPeople person) throws NoSuchNeedyPeopleException {
-		String num=needyRepo.checkIfUserAlreadyExists(person.getPhone());
-		if(num == person.getPhone() )
+		//String num=needyRepo.checkIfNeedyAlreadyExists(person.getPhone());
+		NeedyPeople n=needyRepo.findById(person.getNeedyPersonId()).orElse(null);
+		if(n != null )
 		{
-			throw new NoSuchNeedyPeopleException("User already exists for this phone");
+			throw new NoSuchNeedyPeopleException("User already exists for this id");
 		}
 		else
 		{

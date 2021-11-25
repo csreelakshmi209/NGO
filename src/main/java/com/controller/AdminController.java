@@ -21,9 +21,7 @@ import com.dao.EmployeeRepository;
 import com.exception.DuplicateEmployeeException;
 import com.exception.NoSuchEmployeeException;
 import com.model.Employee;
-import com.service.AdminServiceImpl;
 import com.service.IAdminService;
-
 
 @RestController
 public class AdminController {
@@ -32,60 +30,58 @@ public class AdminController {
 	IAdminService adminService;
 	@Autowired
 	EmployeeRepository empDao;
-	
+
 	@RequestMapping("/Hello")
-	public String helloAdmin()
-	{
-		String msg="Welcome to Admin services";
+	public String helloAdmin() {
+		String msg = "Welcome to Admin services";
 		return msg;
 	}
-	//add employee
+
+	// add employee
 	@PostMapping("/employee/add")
-	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) throws  SQLException, NoSuchEmployeeException, DuplicateEmployeeException
-	{
-		Employee emp=adminService.addEmployee(employee);
-		return new ResponseEntity<Employee>(emp,HttpStatus.CREATED);
+	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee)
+			throws SQLException, NoSuchEmployeeException, DuplicateEmployeeException {
+		Employee emp = adminService.addEmployee(employee);
+		return new ResponseEntity<Employee>(emp, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/employee/get")
-	public ResponseEntity<List<Employee>> getEmployees()
-	{
-		List<Employee> lcl=adminService.getEmployees();
-	 ResponseEntity re=new ResponseEntity<List<Employee>>(lcl,HttpStatus.OK);
-	return re;
-	}
-	//modify
-	@PutMapping(path="/employee/update")
-	public ResponseEntity<Employee> modifyEmployee(@RequestBody Employee employee) throws Throwable
-	{
-		Employee e1=adminService.modifyEmployee(employee);
-		
-		ResponseEntity re=new ResponseEntity<Employee>(e1,HttpStatus.OK);
+	public ResponseEntity<List<Employee>> getEmployees() {
+		List<Employee> lcl = adminService.getEmployees();
+		ResponseEntity<List<Employee>> re = new ResponseEntity<List<Employee>>(lcl, HttpStatus.OK);
 		return re;
 	}
-	@DeleteMapping(path="/employee/remove/{eid}")
-	public ResponseEntity<String> removeEmployee(@PathVariable int eid) throws NoSuchEmployeeException
-	{
+
+	// modify
+	@PutMapping(path = "/employee/update")
+	public ResponseEntity<Employee> modifyEmployee(@RequestBody Employee employee) throws Throwable {
+		Employee e1 = adminService.modifyEmployee(employee);
+
+		ResponseEntity<Employee> re = new ResponseEntity<Employee>(e1, HttpStatus.OK);
+		return re;
+	}
+
+	@DeleteMapping(path = "/employee/remove/{eid}")
+	public ResponseEntity<Employee> removeEmployee(@PathVariable int eid) throws NoSuchEmployeeException {
 		adminService.removeEmployee(eid);
-		
-		ResponseEntity re=new ResponseEntity<String>("Deleted",HttpStatus.OK);
+
+		ResponseEntity<Employee> re = new ResponseEntity<Employee>(HttpStatus.OK);
 		return re;
 	}
-	
+
 	@GetMapping("/employee/{employeeId}")
-	public ResponseEntity<Employee> findEmployeeById(@PathVariable int employeeId) throws NoSuchEmployeeException 
-	{
-		Employee lc=adminService.findEmployeeById(employeeId);
-		ResponseEntity re=new ResponseEntity<Employee>(lc,HttpStatus.OK);
+	public ResponseEntity<Employee> findEmployeeById(@PathVariable int employeeId) throws NoSuchEmployeeException {
+		Employee lc = adminService.findEmployeeById(employeeId);
+		ResponseEntity<Employee> re = new ResponseEntity<Employee>(lc, HttpStatus.OK);
 		return re;
 	}
-	
+
 	@GetMapping("/employee/{employeeName}")
-	public ResponseEntity<Employee> findEmployeeByName(@PathVariable String employeeName) throws NoSuchEmployeeException 
-	{
-		Employee lc=adminService.findEmployeeByName(employeeName);
-		ResponseEntity re=new ResponseEntity<Employee>(lc,HttpStatus.OK);
+	public ResponseEntity<Employee> findEmployeeByName(@PathVariable String employeeName)
+			throws NoSuchEmployeeException {
+		Employee lc = adminService.findEmployeeByName(employeeName);
+		ResponseEntity<Employee> re = new ResponseEntity<Employee>(lc, HttpStatus.OK);
 		return re;
 	}
-	
+
 }

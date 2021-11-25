@@ -11,7 +11,8 @@ public interface IDonorService {
 	public Donation donateToNGO(Donation donation);
 	public void sendThankyouMailToDonator(Donor donor);
 	public String forgotPassword(String username);
-	public String resetPassword(String username);
+	//public String resetPassword(String username);
 	public void emailPasswordToDonor(String email);
+	public String resetPassword(String username, Donor donor);
 
 }
